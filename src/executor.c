@@ -3,50 +3,25 @@
 #include <stdint.h>
 #include "executor.h"
 
-void printBinary(unsigned int n, uint8_t len) {
-	for (int i = len - 1; i >= 0; i--) {
-		putchar((n & (1u << i)) ? '1' : '0');
-	}
-	putchar('\n');
-}
+#define CASE_EXEC(opcode, func) case 0b##opcode: exec_##func(instruction); break
 
 void executeInstruction(instruction_t instruction) {
 	switch (instruction.opcode >> 2) {
-	case 0b01100: // OP
-		exec_op(instruction);
-		break;
-	case 0b00000: // LOAD
-		exec_load(instruction);
-		break;
-	case 0b11001: // JALR
-		exec_jalr(instruction);
-		break;
-	case 0b11100: // SYSTEM
-		exec_system(instruction);
-		break;
-	case 0b00100: // OP-IMM
-		exec_op_imm(instruction);
-		break;
-	case 0b01000: // STORE
-		exec_store(instruction);
-		break;
-	case 0b11000: // BRANCH
-		exec_branch(instruction);
-		break;
-	case 0b00101: // AUIPC
-		exec_auipc(instruction);
-		break;
-	case 0b01101: // LUI
-		exec_lui(instruction);
-		break;
-	case 0b11011: // JAL
-		exec_jal(instruction);
-		break;
+		CASE_EXEC(01100, op); // OP
+		CASE_EXEC(00000, load); // LOAD
+		CASE_EXEC(11001, jalr); // JALR
+		CASE_EXEC(11100, system); // SYSTEM
+		CASE_EXEC(00100, op_imm); // OP-IMM
+		CASE_EXEC(01000, store); // STORE
+		CASE_EXEC(11000, branch); // BRANCH
+		CASE_EXEC(00101, auipc); // AUIPC
+		CASE_EXEC(01101, lui); // LUI
+		CASE_EXEC(11011, jal); // JAL
 	}
 }
 
-void executeProgram(const char *test_file) {
-	FILE *file = fopen(test_file, "rb");
+void executeProgram(const char *testFile) {
+	FILE *file = fopen(testFile, "rb");
 	if (file == NULL) {
 		perror("Failed to open executable binary");
 		exit(1);

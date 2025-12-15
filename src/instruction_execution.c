@@ -8,24 +8,24 @@
 bool halt = false;
 
 [[noreturn]] void invalidFunct3(const char *opcode, uint8_t funct3) {
-	fprintf(stderr, "Invalid funct3 for %s opcode: %3b", opcode, funct3);
+	fprintf(stderr, "Invalid funct3 for %s opcode: %d%d%d", opcode, (funct3 >> 2) & 1, (funct3 >> 1) & 1, funct3 & 1);
 	exit(1);
 }
 
 void exec_branch(instruction_t i) {
 	switch (i.funct3) {
 	case 0b000: // BEQ
-		if (registers[i.rs1] == registers[i.rs2]) { break; } else { return; }
+		if (registers[i.rs1] == registers[i.rs2]) break; else return;
 	case 0b001: // BNE
-		if (registers[i.rs1] != registers[i.rs2]) { break; } else { return; }
+		if (registers[i.rs1] != registers[i.rs2]) break; else return;
 	case 0b100: // BLT
-		if (registers[i.rs1] < registers[i.rs2]) { break; } else { return; }
+		if (registers[i.rs1] < registers[i.rs2]) break; else return;
 	case 0b101: // BGE
-		if (registers[i.rs1] >= registers[i.rs2]) { break; } else { return; }
+		if (registers[i.rs1] >= registers[i.rs2]) break; else return;
 	case 0b110: // BLTU
-		if ((uint32_t)registers[i.rs1] < (uint32_t)registers[i.rs2]) { break; } else { return; }
+		if ((uint32_t)registers[i.rs1] < (uint32_t)registers[i.rs2]) break; else return;
 	case 0b111: // BGEU
-		if ((uint32_t)registers[i.rs1] >= (uint32_t)registers[i.rs2]) { break; } else { return; }
+		if ((uint32_t)registers[i.rs1] >= (uint32_t)registers[i.rs2]) break; else return;
 	default:
 		invalidFunct3("BRANCH", i.funct3);
 	}
