@@ -19,7 +19,7 @@
 	"C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType": true,
 	"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
 	"cmake.generator": "MinGW Makefiles",
-	"cmake.ctestDefaultArgs": ["--output-on-failure"],
+	"cmake.deleteBuildDirOnCleanConfigure": true,
 	"cmake.ctest.testSuiteDelimiter": "_",
 	"cmake.ctest.allowParallelJobs": true,
 	"cmake.ctest.parallelJobs": 1,
