@@ -2,10 +2,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "instruction_execution.h"
-#include "memory.h"
+#include "state.h"
 #include "bits.h"
-
-bool halt = false;
 
 [[noreturn]] void invalidFunct3(const char *opcode, uint8_t funct3) {
 	fprintf(stderr, "Invalid funct3 for %s opcode: %d%d%d", opcode, (funct3 >> 2) & 1, (funct3 >> 1) & 1, funct3 & 1);
@@ -174,7 +172,7 @@ void exec_system(instruction_t i) {
 		// ECALL
 		switch (registers[17]) {
 		case 10:
-			halt = true;
+			status = STATUS_HALTED;
 			break;
 		default:
 			fprintf(stderr, "Unsupported environment call %d!", registers[17]);

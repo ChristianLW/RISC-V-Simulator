@@ -41,10 +41,10 @@ void executeProgram(const char *testFile) {
 		exit(1);
 	}
 
-	// Assignment says to exit if PC moves past last instruction
-	while (!halt && pc < size) {
+	while (status == STATUS_RUNNING) {
 		uint32_t instruction = *(uint32_t *)(memory + pc);
 		instruction_t decoded = decodeInstruction(instruction);
 		executeInstruction(decoded);
+		if (pc >= size) status = STATUS_HALTED;
 	}
 }

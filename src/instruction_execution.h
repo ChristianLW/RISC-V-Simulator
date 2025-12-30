@@ -14,6 +14,4 @@ void exec_auipc(instruction_t instruction);
 void exec_lui(instruction_t instruction);
 void exec_jal(instruction_t instruction);
 
-extern bool halt;
-
 #endif
