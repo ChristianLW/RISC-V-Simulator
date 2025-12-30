@@ -8,6 +8,7 @@
 #define CASE_EXEC(opcode, func) case 0b##opcode: exec_##func(instruction); break
 
 void executeInstruction(instruction_t instruction) {
+	pc += 4;
 	switch (instruction.opcode >> 2) {
 		CASE_EXEC(01100, op); // OP
 		CASE_EXEC(00000, load); // LOAD
@@ -20,6 +21,7 @@ void executeInstruction(instruction_t instruction) {
 		CASE_EXEC(01101, lui); // LUI
 		CASE_EXEC(11011, jal); // JAL
 	}
+	registers[0] = 0;
 }
 
 void executeProgram(const char *testFile) {
@@ -43,8 +45,6 @@ void executeProgram(const char *testFile) {
 	while (!halt && pc < size) {
 		uint32_t instruction = *(uint32_t *)(memory + pc);
 		instruction_t decoded = decodeInstruction(instruction);
-		pc += 4;
 		executeInstruction(decoded);
-		registers[0] = 0;
 	}
 }
