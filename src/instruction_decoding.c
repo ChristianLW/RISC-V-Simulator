@@ -1,6 +1,8 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
 #include "instruction_decoding.h"
+#include "bits.h"
 
 [[noreturn]] void invalidInstruction(uint32_t instruction) {
 	fprintf(stderr, "Invalid instruction: %08X", instruction);

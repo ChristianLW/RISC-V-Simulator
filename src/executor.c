@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include "instruction_decoding.h"
+#include "instruction_execution.h"
 #include "executor.h"
 
 #define CASE_EXEC(opcode, func) case 0b##opcode: exec_##func(instruction); break

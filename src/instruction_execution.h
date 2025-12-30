@@ -1,7 +1,7 @@
 #ifndef INSTRUCTION_EXECUTION_H
 #define INSTRUCTION_EXECUTION_H
 
-#include "instruction_decoding.h"
+#include "instruction.h"
 
 void exec_op(instruction_t instruction);
 void exec_load(instruction_t instruction);

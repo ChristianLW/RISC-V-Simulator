@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "instruction_execution.h"
-#include "executor.h"
 #include "memory.h"
+#include "bits.h"
 
 bool halt = false;
 
